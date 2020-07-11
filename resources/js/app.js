@@ -20,7 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
+Vue.component('secretaria', require('./components/Secretaria.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,4 +29,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data: function(){
+        return{
+            // permitirá controlar que vista se debe de mostrar
+            // para cada opcion que se seleccione del sidebar
+            menu : 0,
+            // permite controlar y visualizar las notificaciones
+            notifications : []
+        };
+    },
 });
