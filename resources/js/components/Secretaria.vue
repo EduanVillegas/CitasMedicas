@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Secretarias
+          <i class="fa fa-align-justify"></i> Secretaa
           <button
             type="button"
             class="btn btn-success"

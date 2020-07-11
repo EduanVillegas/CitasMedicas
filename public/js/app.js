@@ -37734,7 +37734,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
             _c("i", { staticClass: "fa fa-align-justify" }),
-            _vm._v(" Secretarias\n        "),
+            _vm._v(" Secretaa\n        "),
             _c(
               "button",
               {
