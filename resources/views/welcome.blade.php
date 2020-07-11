@@ -82,6 +82,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
+                <example-component></example-component>
                 </div>
 
                 <div class="links">
@@ -96,5 +97,9 @@
                 </div>
             </div>
         </div>
+        <div id="app" class="content"><!--La equita id debe ser app, como hemos visto en app.js-->
+            <example-component></example-component><!--Añadimos nuestro componente vuejs-->
+        </div>
+    <script src="{{asset('js/app.js')}}"></script> <!--Añadimos el js generado con webpack, donde se encuentra nuestro componente vuejs-->
     </body>
 </html>
