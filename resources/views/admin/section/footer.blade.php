@@ -1,6 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="http://adminlte.io">StackedMindsOfficial</a>.</strong>
-    Para uso libre.
+    <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Eduan Villegas</a>.</strong>
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
     </div>

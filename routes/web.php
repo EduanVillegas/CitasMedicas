@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('contenido/main');
 });
+Route::get('secretaria/index', 'UsuarioController@index')->name('usuario_listar');
+Route::post('secretaria/store', 'UsuarioController@store');
+Route::get('secretaria/show', 'UsuarioController@show');
+// Auth::routes();
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

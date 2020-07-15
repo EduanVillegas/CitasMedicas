@@ -45,7 +45,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-tree"></i>
                                     <p>
-                                        Ventas
+                                        Agenda
                                         <i class="fa fa-angle-left right"></i>
                                     </p>
                                 </a>
@@ -53,13 +53,13 @@
                                     <li class="nav-item">
                                         <a href="pages/UI/general.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Vender</p>
+                                            <p>Pacientes</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/UI/icons.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes</p>
+                                            <p>Fechas</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -81,13 +81,19 @@
                                     <li class="nav-item">
                                         <a href="pages/forms/advanced.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Proveedores</p>
+                                            <p>Doctores</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/forms/editors.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Clientes</p>
+                                            <p>Pacientes</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/forms/editors.html" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>Consultorios</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -104,31 +110,31 @@
                                     <li class="nav-item">
                                         <a href="pages/tables/data.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes ventas</p>
+                                            <p>Reportes Secretarias</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/tables/data.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes compras</p>
+                                            <p>Reportes Doctores</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/tables/simple.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes clientes</p>
+                                            <p>Reportes Pacientes</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/tables/data.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes proveedores</p>
+                                            <p>Reportes Pacientes</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="pages/tables/data.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Reportes empleados</p>
+                                            <p>Reportes </p>
                                         </a>
                                     </li>
                                 </ul>

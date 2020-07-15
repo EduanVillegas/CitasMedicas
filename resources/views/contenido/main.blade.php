@@ -8,7 +8,7 @@
 
     <!--indica que la primera opcion del menu, debe msotrar este componente -->
     <template v-if="menu==0">   
-        <example-component></example-component>
+        <home></home>
     </template>
 
     <template v-if="menu==1">
