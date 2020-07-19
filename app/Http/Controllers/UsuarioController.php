@@ -42,7 +42,7 @@ class UsuarioController extends Controller
         $usuario->direccion = $request->direccion;
         $usuario->telefono = $request->telefono;
         $usuario->save();
-        return true;
+        return $usuario;
     }
 
     /**
@@ -53,7 +53,6 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -64,7 +63,7 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $usuario = Usuario::where('id_usuario', $id)->first();
+        $usuario = Usuario::find($id);
         return $usuario;
     }
 
@@ -77,7 +76,13 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->nombre_usuario = $request->nombre_usuario;
+        $usuario->apellido_usuario = $request->apellido_usuario;
+        $usuario->direccion = $request->direccion;
+        $usuario->telefono = $request->telefono;
+        $usuario->update();
+        return $usuario;
     }
 
     /**
@@ -88,6 +93,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->delete();
     }
 }

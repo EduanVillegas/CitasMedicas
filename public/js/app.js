@@ -1899,6 +1899,192 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Consultorio.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Consultorio.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var datatables_net_dt__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! datatables.net-dt */ "./node_modules/datatables.net-dt/js/dataTables.dataTables.js");
+/* harmony import */ var datatables_net_dt__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(datatables_net_dt__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net-dt/css/jquery.dataTables.min.css */ "./node_modules/datatables.net-dt/css/jquery.dataTables.min.css");
+/* harmony import */ var datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+ //import $ from "jquery";
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      nombre: "",
+      //Esta variable, mediante v-model esta relacionada con el input del formulario
+      update: 0
+      /*Esta variable contrarolará cuando es una nueva tarea o una modificación, si es 0 significará que no hemos seleccionado*/
+      ,
+      consultorios: []
+    };
+  },
+  mounted: function mounted() {
+    this.listar(); //this.getDataTableUsers();
+  },
+  methods: {
+    listar: function listar() {
+      var me = this;
+      var url = "/consultorio/index"; //Ruta que hemos creado para que nos devuelva todas las tareas
+
+      axios.get(url).then(function (response) {
+        //creamos un array y guardamos el contenido que nos devuelve el response
+        me.consultorios = response.data;
+        me.initDtt();
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    initDtt: function initDtt() {
+      $(document).ready(function () {
+        $("#tabla").DataTable({
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+          }
+        });
+      });
+    },
+    guardar: function guardar() {
+      var me = this;
+      var url = "/secretaria/store"; //Ruta que hemos creado para enviar una tarea y guardarla
+
+      axios.post(url, {
+        //estas variables son las que enviaremos para que crear la tarea
+        nombre_usuario: this.nombres,
+        apellido_usuario: this.apellidos,
+        direccion: this.direccion,
+        telefono: this.telefono
+      }).then(function (response) {
+        //          me.getTasks(); //llamamos al metodo getTask(); para que refresque nuestro array y muestro los nuevos datos
+        //        me.clearFields(); //Limpiamos los campos e inicializamos la variable update a 0
+        $("#secretariaTable").dataTable().fnDestroy();
+        me.getSecretarias();
+        me.limpiarInput();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    cargarDatos: function cargarDatos(id) {
+      //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
+      this.update = id;
+      var me = this;
+      var url = "/secretaria/edit/" + this.update;
+      axios.get(url).then(function (response) {
+        me.nombres = response.data.nombre_usuario;
+        me.apellidos = response.data.apellido_usuario;
+        me.direccion = response.data.direccion;
+        me.telefono = response.data.telefono;
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    updateSecretaria: function updateSecretaria() {
+      /*Esta funcion, es igual que la anterior, solo que tambien envia la variable update que contiene el id de la
+                tarea que queremos modificar*/
+      var me = this;
+      axios.put("/secretaria/update/" + this.update, {
+        //id: this.update,
+        nombre_usuario: this.nombres,
+        apellido_usuario: this.apellidos,
+        direccion: this.direccion,
+        telefono: this.telefono
+      }).then(function (response) {
+        $("#secretariaTable").dataTable().fnDestroy();
+        me.getSecretarias();
+        me.limpiarInput();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    deleteSecretaria: function deleteSecretaria(id) {
+      //Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegido
+      var me = this; // let task_id = data.id;
+
+      if (confirm("¿Seguro que deseas borrar esta tarea?")) {
+        axios["delete"]("/secretaria/delete/" + id).then(function (response) {
+          $("#secretariaTable").dataTable().fnDestroy();
+          me.getSecretarias();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
+    limpiarInput: function limpiarInput() {
+      /*Limpia los campos e inicializa la variable update a 0*/
+      this.nombres = "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+      this.apellidos = "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+      this.direccion = "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+      this.telefono = "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+      this.update = 0;
+      /*Esta variable contrarolará cuando es una nueva tarea o una modificación, si es 0 significará que no hemos seleccionado*/
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -2057,8 +2243,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var datatables_net_dt__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(datatables_net_dt__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables.net-dt/css/jquery.dataTables.min.css */ "./node_modules/datatables.net-dt/css/jquery.dataTables.min.css");
 /* harmony import */ var datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(datatables_net_dt_css_jquery_dataTables_min_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2189,7 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-
+ //import $ from "jquery";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2226,8 +2442,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     initDtt: function initDtt() {
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()(document).ready(function () {
-        jquery__WEBPACK_IMPORTED_MODULE_2___default()("#secretariaTable").DataTable({
+      $(document).ready(function () {
+        $("#secretariaTable").DataTable({
           language: {
             url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
           }
@@ -2235,51 +2451,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getDataTableUsers: function getDataTableUsers() {
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#secretariaTable").DataTable(); // $("#secretariaTable").DataTable({
-      //   // processing: true,
-      //   // serverSide: true,
-      //   language: {
-      //     url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-      //   }
-      //   // ajax: {
-      //   //   url: "/secretaria/index",
-      //   //   dataSrc: "data",
-      //   //   type: "GET"
-      //   // },
-      //   // columns: [
-      //   //   { data: "id_usuario" },
-      //   //   { data: "nombre_usuario" },
-      //   //   { data: "apellido_usuario" },
-      //   //   { data: "direccion" },
-      //   //   { data: "telefono" },
-      //   //   {
-      //   //     render: function(data, wea, row) {
-      //   //       return (
-      //   //         '<a class="btn btn-warning" href="#"><i class="fa fa-edit" aria-hidden="true" title="Actualizar Secretaria"></i></a></li>' +
-      //   //         ' <a class="btn btn-danger" href="#" ><i class="fa fa-remove " aria-hidden="true" title="Eliminar Secretaria"></i></a></li>'
-      //   //       );
-      //   //     }
-      //   //   }
-      //   // ]
-      // });
-    },
-    cargarDatos: function cargarDatos() {
-      //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
-      //this.update = 2;
-      alert("hola"); // let me = this;
-      // let url = "/secretaria/show/id=" + this.update;
-      // axios
-      //   .get(url)
-      //   .then(function(response) {
-      //     (me.nombres =response.data.nombres),
-      //       (me.apellidos =response.data.apellidos),
-      //       (me.direccion =response.data.direccion),
-      //       (me.telefono =response.data.telefono),
-      //   })
-      //   .catch(function(error) {
-      //     // handle error
-      //     console.log(error);
-      //   });
+      $("#secretariaTable").DataTable();
     },
     guardar: function guardar() {
       var me = this;
@@ -2294,12 +2466,58 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         //          me.getTasks(); //llamamos al metodo getTask(); para que refresque nuestro array y muestro los nuevos datos
         //        me.clearFields(); //Limpiamos los campos e inicializamos la variable update a 0
-        jquery__WEBPACK_IMPORTED_MODULE_2___default()("#secretariaTable").dataTable().fnDestroy();
+        $("#secretariaTable").dataTable().fnDestroy();
         me.getSecretarias();
         me.limpiarInput();
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    cargarDatos: function cargarDatos(id) {
+      //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
+      this.update = id;
+      var me = this;
+      var url = "/secretaria/edit/" + this.update;
+      axios.get(url).then(function (response) {
+        me.nombres = response.data.nombre_usuario;
+        me.apellidos = response.data.apellido_usuario;
+        me.direccion = response.data.direccion;
+        me.telefono = response.data.telefono;
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    },
+    updateSecretaria: function updateSecretaria() {
+      /*Esta funcion, es igual que la anterior, solo que tambien envia la variable update que contiene el id de la
+                tarea que queremos modificar*/
+      var me = this;
+      axios.put("/secretaria/update/" + this.update, {
+        //id: this.update,
+        nombre_usuario: this.nombres,
+        apellido_usuario: this.apellidos,
+        direccion: this.direccion,
+        telefono: this.telefono
+      }).then(function (response) {
+        $("#secretariaTable").dataTable().fnDestroy();
+        me.getSecretarias();
+        me.limpiarInput();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    deleteSecretaria: function deleteSecretaria(id) {
+      //Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegido
+      var me = this; // let task_id = data.id;
+
+      if (confirm("¿Seguro que deseas borrar esta tarea?")) {
+        axios["delete"]("/secretaria/delete/" + id).then(function (response) {
+          $("#secretariaTable").dataTable().fnDestroy();
+          me.getSecretarias();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
     },
     limpiarInput: function limpiarInput() {
       /*Limpia los campos e inicializa la variable update a 0*/
@@ -53994,6 +54212,127 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "content" }, [
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered table-striped",
+              attrs: { id: "tabla" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.consultorios, function(item, index) {
+                  return _c("tr", { key: item.id }, [
+                    _c("td", { domProps: { textContent: _vm._s(index + 1) } }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.nombre) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          on: {
+                            click: function($event) {
+                              return _vm.cargarDatos(item.id)
+                            }
+                          }
+                        },
+                        [_c("span", { staticClass: "fa fa-edit" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteSecretaria(item.id)
+                            }
+                          }
+                        },
+                        [_c("span", { staticClass: "fa fa-remove" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-align-justify" }),
+      _vm._v(" Consultorios\n        "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#modelId"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Nuevo\n        ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Consultorios")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opciones")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -54214,55 +54553,57 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.secretarias.data, function(item) {
-                  return _c("tr", { key: item.id_usuario }, [
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    ),
+                _vm._l(_vm.secretarias.data, function(item, index) {
+                  return _c("tr", { key: item.id }, [
+                    _c("td", { domProps: { textContent: _vm._s(index + 1) } }),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    ),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.nombre_usuario) }
+                    }),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    ),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.apellido_usuario) }
+                    }),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    ),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.direccion) }
+                    }),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    ),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(item.telefono) }
+                    }),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        domProps: { textContent: _vm._s(item.nombre_usuario) }
-                      },
-                      [_vm._v("1")]
-                    )
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          attrs: {
+                            "data-toggle": "modal",
+                            "data-target": "#modelId"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.cargarDatos(item.id)
+                            }
+                          }
+                        },
+                        [_c("span", { staticClass: "fa fa-edit" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteSecretaria(item.id)
+                            }
+                          }
+                        },
+                        [_c("span", { staticClass: "fa fa-remove" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -54426,28 +54767,53 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                ),
+                _vm.update != 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.limpiarInput()
+                          }
+                        }
+                      },
+                      [_vm._v("Cerrar")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        return _vm.guardar()
-                      }
-                    }
-                  },
-                  [_vm._v("Guardar")]
-                )
+                _vm.update == 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.guardar()
+                          }
+                        }
+                      },
+                      [_vm._v("Añadir")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.update != 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-warning",
+                        attrs: { "data-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.updateSecretaria()
+                          }
+                        }
+                      },
+                      [_vm._v("Actualizar")]
+                    )
+                  : _vm._e()
               ])
             ])
           ]
@@ -66715,6 +67081,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('secretaria', __webpack_require__(/*! ./components/Secretaria.vue */ "./resources/js/components/Secretaria.vue")["default"]);
+Vue.component('consultorio', __webpack_require__(/*! ./components/Consultorio.vue */ "./resources/js/components/Consultorio.vue")["default"]);
 Vue.component('home', __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -66779,6 +67146,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/Consultorio.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/Consultorio.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Consultorio.vue?vue&type=template&id=27d72c9a& */ "./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a&");
+/* harmony import */ var _Consultorio_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Consultorio.vue?vue&type=script&lang=js& */ "./resources/js/components/Consultorio.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Consultorio_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Consultorio.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Consultorio.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Consultorio.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Consultorio_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Consultorio.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Consultorio.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Consultorio_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Consultorio.vue?vue&type=template&id=27d72c9a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Consultorio.vue?vue&type=template&id=27d72c9a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consultorio_vue_vue_type_template_id_27d72c9a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

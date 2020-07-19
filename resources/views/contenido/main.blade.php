@@ -14,10 +14,10 @@
     <template v-if="menu==1">
         <secretaria></secretaria>
     </template>
-    
-    {{-- <template v-if="menu==2">
-        <articles></articles>
+    <template v-if="menu==2">
+        <consultorio></consultorio>
     </template>
+    {{--
 
     <template v-if="menu==3">
         <incomes></incomes>

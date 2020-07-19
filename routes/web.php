@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('contenido/main');
 });
-Route::get('secretaria/index', 'UsuarioController@index')->name('usuario_listar');
+Route::get('secretaria/index', 'UsuarioController@index');
 Route::post('secretaria/store', 'UsuarioController@store');
-Route::get('secretaria/show', 'UsuarioController@show');
+Route::get('secretaria/edit/{id}', 'UsuarioController@edit');
+Route::put("secretaria/update/{id}","UsuarioController@update");
+Route::delete("secretaria/delete/{id}","UsuarioController@destroy");
+
+Route::get('consultorio/index', 'ConsultorioController@index');
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

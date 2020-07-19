@@ -3,7 +3,7 @@
                 <a href="index3.html" class="brand-link">
                     <img src="img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
-                    <span class="brand-text font-weight-light">Aplicacion</span>
+                    <span class="brand-text font-weight-light">Citas Medicas</span>
                 </a>
 
                 <!-- Sidebar -->
@@ -30,14 +30,6 @@
                                     <p>
                                         Inicio
                                         <span class="right badge badge-danger">Info</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li @click="menu=1" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fa fa-pie-chart"></i>
-                                    <p>
-                                        Secretarias
                                     </p>
                                 </a>
                             </li>
@@ -72,10 +64,16 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="pages/forms/general.html" class="nav-link">
+                                    <li @click="menu=1" class="nav-item">
+                                        <a href="#" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Usuarios</p>
+                                            <p>Secretarias</p>
+                                        </a>
+                                    </li>
+                                    <li @click="menu=2" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-circle-o nav-icon"></i>
+                                            <p>Consultorios</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -88,12 +86,6 @@
                                         <a href="pages/forms/editors.html" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>Pacientes</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/forms/editors.html" class="nav-link">
-                                            <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>Consultorios</p>
                                         </a>
                                     </li>
                                 </ul>

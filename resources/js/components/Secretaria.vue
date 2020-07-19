@@ -27,14 +27,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in secretarias.data" :key="item.id_usuario">
+              <tr v-for="(item,index) in secretarias.data" :key="item.id">
                 <!--Recorremos el array y cargamos nuestra tabla-->
-                <td v-text="item.nombre_usuario">1</td>
-                <td v-text="item.nombre_usuario">1</td>
-                <td v-text="item.nombre_usuario">1</td>
-                <td v-text="item.nombre_usuario">1</td>
-                <td v-text="item.nombre_usuario">1</td>
-                <td v-text="item.nombre_usuario">1</td>
+                <td v-text="index+1"></td>
+                <td v-text="item.nombre_usuario"></td>
+                <td v-text="item.apellido_usuario"></td>
+                <td v-text="item.direccion"></td>
+                <td v-text="item.telefono"></td>
+                <td>
+                  <button
+                    @click="cargarDatos(item.id)"
+                    class="btn btn-warning"
+                    data-toggle="modal"
+                    data-target="#modelId"
+                  >
+                    <span class="fa fa-edit"></span>
+                  </button>
+                  <button @click="deleteSecretaria(item.id)" class="btn btn-danger">
+                    <span class="fa fa-remove"></span>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -118,8 +130,28 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" @click="guardar()" data-dismiss="modal">Guardar</button>
+            <!-- Botón que limpia el formulario y inicializa la variable a 0, solo se muestra si la variable update es diferente a 0-->
+            <button
+              v-if="update != 0"
+              @click="limpiarInput()"
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >Cerrar</button>
+            <!-- Botón que añade los datos del formulario, solo se muestra si la variable update es igual a 0-->
+            <button
+              v-if="update == 0"
+              @click="guardar()"
+              data-dismiss="modal"
+              class="btn btn-success"
+            >Añadir</button>
+            <!-- Botón que modifica la tarea que anteriormente hemos seleccionado, solo se muestra si la variable update es diferente a 0-->
+            <button
+              v-if="update != 0"
+              @click="updateSecretaria()"
+              data-dismiss="modal"
+              class="btn btn-warning"
+            >Actualizar</button>
           </div>
         </div>
       </div>
@@ -130,7 +162,7 @@
 <script>
 import dt from "datatables.net-dt";
 import dtcss from "datatables.net-dt/css/jquery.dataTables.min.css";
-import $ from 'jquery';
+//import $ from "jquery";
 export default {
   data() {
     return {
@@ -165,60 +197,14 @@ export default {
     initDtt() {
       $(document).ready(() => {
         $("#secretariaTable").DataTable({
-           language: {
-          url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-        }
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+          }
         });
       });
     },
     getDataTableUsers: function() {
       $("#secretariaTable").DataTable();
-      // $("#secretariaTable").DataTable({
-      //   // processing: true,
-      //   // serverSide: true,
-      //   language: {
-      //     url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
-      //   }
-      //   // ajax: {
-      //   //   url: "/secretaria/index",
-      //   //   dataSrc: "data",
-      //   //   type: "GET"
-      //   // },
-      //   // columns: [
-      //   //   { data: "id_usuario" },
-      //   //   { data: "nombre_usuario" },
-      //   //   { data: "apellido_usuario" },
-      //   //   { data: "direccion" },
-      //   //   { data: "telefono" },
-      //   //   {
-      //   //     render: function(data, wea, row) {
-      //   //       return (
-      //   //         '<a class="btn btn-warning" href="#"><i class="fa fa-edit" aria-hidden="true" title="Actualizar Secretaria"></i></a></li>' +
-      //   //         ' <a class="btn btn-danger" href="#" ><i class="fa fa-remove " aria-hidden="true" title="Eliminar Secretaria"></i></a></li>'
-      //   //       );
-      //   //     }
-      //   //   }
-      //   // ]
-      // });
-    },
-    cargarDatos() {
-      //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
-      //this.update = 2;
-      alert("hola");
-      // let me = this;
-      // let url = "/secretaria/show/id=" + this.update;
-      // axios
-      //   .get(url)
-      //   .then(function(response) {
-      //     (me.nombres =response.data.nombres),
-      //       (me.apellidos =response.data.apellidos),
-      //       (me.direccion =response.data.direccion),
-      //       (me.telefono =response.data.telefono),
-      //   })
-      //   .catch(function(error) {
-      //     // handle error
-      //     console.log(error);
-      //   });
     },
     guardar: function() {
       let me = this;
@@ -243,6 +229,65 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    cargarDatos: function(id) {
+      //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
+      this.update = id;
+      let me = this;
+      let url = "/secretaria/edit/" + this.update;
+      axios
+        .get(url)
+        .then(function(response) {
+          me.nombres = response.data.nombre_usuario;
+          me.apellidos = response.data.apellido_usuario;
+          me.direccion = response.data.direccion;
+          me.telefono = response.data.telefono;
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error);
+        });
+    },
+    updateSecretaria: function() {
+      /*Esta funcion, es igual que la anterior, solo que tambien envia la variable update que contiene el id de la
+                tarea que queremos modificar*/
+      let me = this;
+      axios
+        .put("/secretaria/update/" + this.update, {
+          //id: this.update,
+          nombre_usuario: this.nombres,
+          apellido_usuario: this.apellidos,
+          direccion: this.direccion,
+          telefono: this.telefono
+        })
+        .then(function(response) {
+          $("#secretariaTable")
+            .dataTable()
+            .fnDestroy();
+          me.getSecretarias();
+          me.limpiarInput();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    deleteSecretaria: function(id) {
+      //Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegido
+       let me = this;
+      // let task_id = data.id;
+      if (confirm("¿Seguro que deseas borrar esta tarea?")) {
+        axios
+          .delete("/secretaria/delete/" + id)
+          .then(function(response) {
+            $("#secretariaTable")
+            .dataTable()
+            .fnDestroy();
+          me.getSecretarias();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
     limpiarInput: function() {
       /*Limpia los campos e inicializa la variable update a 0*/
