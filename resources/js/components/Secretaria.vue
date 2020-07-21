@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-header">
-            <i class="fa fa-align-justify"></i> Secretaria
+            <i class="fa fa-align-justify"></i> Secretarias
             <button type="button" class="btn btn-success" @click="toggleModal()">
               <i class="fa fa-plus"></i>&nbsp;Nuevo
             </button>
