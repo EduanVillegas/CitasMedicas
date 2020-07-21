@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Usuario as Usuario;
+use App\Usuario;
 
-class UsuarioController extends Controller
+class SecretariaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        // $u=Usuario::all();
-        $secretaria = array('data' =>  Usuario::all());
+        $sql=Usuario::where('perfil','1')->get();
+        $secretaria = array('data' => $sql);
         return $secretaria;
     }
 
@@ -36,13 +36,13 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $usuario = new Usuario();
-        $usuario->nombre_usuario = $request->nombre_usuario;
-        $usuario->apellido_usuario = $request->apellido_usuario;
-        $usuario->direccion = $request->direccion;
-        $usuario->telefono = $request->telefono;
-        $usuario->save();
-        return $usuario;
+        $secretaria = new Usuario();
+        $secretaria->nombre_usuario = $request->nombre_usuario;
+        $secretaria->apellido_usuario = $request->apellido_usuario;
+        $secretaria->direccion = $request->direccion;
+        $secretaria->telefono = $request->telefono;
+        $secretaria->save();
+        return $secretaria;
     }
 
     /**
@@ -63,8 +63,8 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $usuario = Usuario::find($id);
-        return $usuario;
+        $secretaria = Usuario::find($id);
+        return $secretaria;
     }
 
     /**
@@ -76,13 +76,13 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = Usuario::find($id);
-        $usuario->nombre_usuario = $request->nombre_usuario;
-        $usuario->apellido_usuario = $request->apellido_usuario;
-        $usuario->direccion = $request->direccion;
-        $usuario->telefono = $request->telefono;
-        $usuario->update();
-        return $usuario;
+        $secretaria = Usuario::find($id);
+        $secretaria->nombre_usuario = $request->nombre_usuario;
+        $secretaria->apellido_usuario = $request->apellido_usuario;
+        $secretaria->direccion = $request->direccion;
+        $secretaria->telefono = $request->telefono;
+        $secretaria->update();
+        return $secretaria;
     }
 
     /**
@@ -93,7 +93,7 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        $usuario = Usuario::find($id);
-        $usuario->delete();
+        $secretaria = Usuario::find($id);
+        $secretaria->delete();
     }
 }

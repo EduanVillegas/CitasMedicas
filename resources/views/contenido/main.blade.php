@@ -6,18 +6,18 @@
     se debe ejecutar nuevamente nmp run dev para actualizar los cambios
     o en su defecto npm run dev --watch-->
 
-    <!--indica que la primera opcion del menu, debe msotrar este componente -->
-    <template v-if="menu==0">   
-        <home></home>
-    </template>
+<!--indica que la primera opcion del menu, debe msotrar este componente -->
+<transition name="fade" v-if="menu==0">
+    <home></home>
+</transition>
 
-    <template v-if="menu==1">
-        <secretaria></secretaria>
-    </template>
-    <template v-if="menu==2">
-        <consultorio></consultorio>
-    </template>
-    {{--
+<transition name="fade" v-if="menu==1">
+    <secretaria></secretaria>
+</transition>
+<transition name="fade" v-if="menu==2">
+    <consultorio></consultorio>
+</transition>
+{{--
 
     <template v-if="menu==3">
         <incomes></incomes>

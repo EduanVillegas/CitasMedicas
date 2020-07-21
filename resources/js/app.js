@@ -7,7 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import dt from "datatables.net-dt";
+import dtcss from "datatables.net-dt/css/jquery.dataTables.min.css";
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
