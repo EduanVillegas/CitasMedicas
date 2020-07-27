@@ -17,6 +17,15 @@
 <transition name="fade" v-if="menu==2">
     <consultorio></consultorio>
 </transition>
+<transition name="fade" v-if="menu==3">
+    <doctor></doctor>
+</transition>
+<transition name="fade" v-if="menu==4">
+    <paciente></paciente>
+</transition>
+<transition name="fade" v-if="menu==5">
+    <perfil></perfil>
+</transition>
 {{--
 
     <template v-if="menu==3">

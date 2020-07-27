@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Usuario;
 
-class SecretariaController extends Controller
+class PacienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class SecretariaController extends Controller
      */
     public function index()
     {
-        $sql = Usuario::where('perfil', '1')->get();
-        $secretaria = array('data' => $sql);
-        return $secretaria;
+        $paciente = Usuario::where('perfil', '3')->get();
+        return $paciente;
     }
 
     /**
@@ -26,6 +25,7 @@ class SecretariaController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -36,30 +36,28 @@ class SecretariaController extends Controller
      */
     public function store(Request $request)
     {
-
         // Verificamos si hay un file con nombre avatar
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nombre_imagen = time() . "_" . $image->getClientOriginalName();
             $image->move('img/usuarios', $nombre_imagen);
             $imagenBD = $nombre_imagen;
-        }
-        else{
+        } else {
             $imagenBD = 'default.png';
         }
-        $secretaria = new Usuario();
-        $secretaria->nombre_usuario = $request->nombre_usuario;
-        $secretaria->apellido_usuario = $request->apellido_usuario;
-        $secretaria->direccion = $request->direccion;
-        $secretaria->telefono = $request->telefono;
-        $secretaria->sexo = $request->sexo;
-        $secretaria->email = $request->email;
-        $secretaria->usuario = $request->usuario;
-        $secretaria->contrasena = $request->contrasena;
-        $secretaria->foto = $imagenBD;
-        $secretaria->perfil = 1;
-        $secretaria->save();
-        return $secretaria;
+        $doctor = new Usuario();
+        $doctor->nombre_usuario = $request->nombre_usuario;
+        $doctor->apellido_usuario = $request->apellido_usuario;
+        $doctor->direccion = $request->direccion;
+        $doctor->telefono = $request->telefono;
+        $doctor->sexo = $request->sexo;
+        $doctor->email = $request->email;
+        $doctor->usuario = $request->usuario;
+        $doctor->contrasena = $request->contrasena;
+        $doctor->foto = $imagenBD;
+        $doctor->perfil = 3;
+        $doctor->save();
+        return $doctor;
     }
 
     /**
@@ -70,6 +68,7 @@ class SecretariaController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -80,9 +79,8 @@ class SecretariaController extends Controller
      */
     public function edit($id)
     {
-        //$secretaria = Usuario::find($id);
-        $secretaria = Usuario::where('id','=',$id)->first();
-        return $secretaria;
+        $paciente = Usuario::where('id', '=', $id)->first();
+        return $paciente;
     }
 
     /**
@@ -94,26 +92,28 @@ class SecretariaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $secretaria = Usuario::find($id);
-        $secretaria->nombre_usuario = $request->nombre_usuario;
-        $secretaria->apellido_usuario = $request->apellido_usuario;
-        $secretaria->direccion = $request->direccion;
-        $secretaria->telefono = $request->telefono;
-        $secretaria->sexo = $request->sexo;
-        $secretaria->email = $request->email;
-        $secretaria->usuario = $request->usuario;
+
+        $paciente = Usuario::find($id);
+        $paciente->nombre_usuario = $request->nombre_usuario;
+        $paciente->apellido_usuario = $request->apellido_usuario;
+        $paciente->direccion = $request->direccion;
+        $paciente->telefono = $request->telefono;
+        $paciente->sexo = $request->sexo;
+        $paciente->email = $request->email;
+        $paciente->usuario = $request->usuario;
         if (!empty($request->contrasena)) {
-            $secretaria->contrasena = $request->contrasena;
+            $paciente->contrasena = $request->contrasena;
         }
         // Verificamos si hay un file con nombre avatar
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nombre_imagen = time() . "_" . $image->getClientOriginalName();
             $image->move('img/usuarios', $nombre_imagen);
-            $secretaria->foto = $nombre_imagen;
+            $paciente->foto = $nombre_imagen;
         }
-        $secretaria->update();
-        return $secretaria;
+
+        $paciente->update();
+        return $paciente;
     }
 
     /**
@@ -124,7 +124,7 @@ class SecretariaController extends Controller
      */
     public function destroy($id)
     {
-        $secretaria = Usuario::find($id);
-        $secretaria->delete();
+        $paciente = Usuario::find($id);
+        $paciente->delete();
     }
 }

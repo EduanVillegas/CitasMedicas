@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Secretaria
+                        <i class="fa fa-align-justify"></i> Doctor
                         <button
                             type="button"
                             class="btn btn-success"
@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table
-                                id="secretariaTable"
+                                id="tablaDoctor"
                                 class="table table-bordered table-striped"
                             >
                                 <thead>
@@ -36,8 +36,7 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="(item,
-                                        index) in secretarias.data"
+                                        v-for="(item, index) in datos"
                                         :key="item.id"
                                     >
                                         <!--Recorremos el array y cargamos nuestra tabla-->
@@ -61,7 +60,7 @@
                                         </td>
                                         <td>
                                             <button
-                                                @click="cargarDatos(item.id)"
+                                                @click="editar(item.id)"
                                                 class="btn btn-warning"
                                                 data-toggle="modal"
                                                 data-target="#modelId"
@@ -69,7 +68,7 @@
                                                 <span class="fa fa-edit"></span>
                                             </button>
                                             <button
-                                                @click="deleteSecretaria(item)"
+                                                @click="eliminar(item)"
                                                 class="btn btn-danger"
                                             >
                                                 <span
@@ -104,9 +103,11 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 v-if="update == 0" class="modal-title">
-                                Agregar Secretaria
+                                Agregar Doctor
                             </h5>
-                            <h5 class="modal-title">Actualizar Secretaria</h5>
+                            <h5 v-else class="modal-title">
+                                Actualizar Doctor
+                            </h5>
                             <button
                                 type="button"
                                 class="close"
@@ -117,128 +118,125 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="get">
-                                <div class="form-group">
-                                    <label for>Nombres</label>
-                                    <input
-                                        type="text"
-                                        v-model="nombres"
-                                        name="nombres"
-                                        id="nombres"
-                                        class="form-control"
-                                        placeholder="nombres de la secretaria"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for>Apellidos</label>
-                                    <input
-                                        type="text"
-                                        v-model="apellidos"
-                                        name="apellidos"
-                                        id="apellidos"
-                                        class="form-control"
-                                        placeholder="apellidos de la secretaria"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for>direccion</label>
-                                    <input
-                                        type="text"
-                                        v-model="direccion"
-                                        name="direccion"
-                                        id="direccion"
-                                        class="form-control"
-                                        placeholder="direccion de la secretaria"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for>telefono</label>
-                                    <input
-                                        type="text"
-                                        v-model="telefono"
-                                        name="telefono"
-                                        id="telefono"
-                                        class="form-control"
-                                        placeholder="telefono de la secretaria"
-                                        maxlength="10"
-                                        pattern="[0-9]{10}"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label for>Sexo</label>
-                                        <div class="col-md-3">
-                                            <span>Hombre</span>
-                                            <input
-                                                type="radio"
-                                                v-model="sexo"
-                                                name="sexo"
-                                                id="sexo"
-                                                value="Hombre"
-                                            />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Mujer</span>
-                                            <input
-                                                type="radio"
-                                                v-model="sexo"
-                                                name="sexo"
-                                                id="sexo"
-                                                value="Mujer"
-                                            />
-                                        </div>
+                            <div class="form-group">
+                                <label for>Nombres</label>
+                                <input
+                                    type="text"
+                                    v-model="nombres"
+                                    name="nombres"
+                                    id="nombres"
+                                    class="form-control"
+                                    placeholder="nombres de la secretaria"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for>Apellidos</label>
+                                <input
+                                    type="text"
+                                    v-model="apellidos"
+                                    name="apellidos"
+                                    id="apellidos"
+                                    class="form-control"
+                                    placeholder="apellidos de la secretaria"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for>direccion</label>
+                                <input
+                                    type="text"
+                                    v-model="direccion"
+                                    name="direccion"
+                                    id="direccion"
+                                    class="form-control"
+                                    placeholder="direccion de la secretaria"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for>telefono</label>
+                                <input
+                                    type="text"
+                                    v-model="telefono"
+                                    name="telefono"
+                                    id="telefono"
+                                    class="form-control"
+                                    placeholder="telefono de la secretaria"
+                                    maxlength="10"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for>Sexo</label>
+                                    <div class="col-md-3">
+                                        <span>Hombre</span>
+                                        <input
+                                            type="radio"
+                                            v-model="sexo"
+                                            name="sexo"
+                                            id="sexo"
+                                            value="Hombre"
+                                        />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span>Mujer</span>
+                                        <input
+                                            type="radio"
+                                            v-model="sexo"
+                                            name="sexo"
+                                            id="sexo"
+                                            value="Mujer"
+                                        />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for>Email</label>
-                                    <input
-                                        type="email"
-                                        v-model="email"
-                                        class="form-control"
-                                        name="email"
-                                        id="email"
-                                        placeholder="Introduce el Email"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for>Usuario</label>
-                                    <input
-                                        type="text"
-                                        v-model="usuario"
-                                        name="usuario"
-                                        id="usuario"
-                                        class="form-control"
-                                        placeholder="introduce el usuairo"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for>Contraseña</label>
-                                    <input
-                                        type="password"
-                                        v-model="contrasena"
-                                        class="form-control"
-                                        name="contrasena"
-                                        id="contrasena"
-                                        placeholder="Intrododuce una contraseña"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label>Foto de Perfil</label>
-                                    <input
-                                        type="file"
-                                        class="form-control-file"
-                                        name="image"
-                                        id="image"
-                                        accept="image/*"
-                                        @change="getImagen"
-                                    />
-                                    <img
-                                        :src="avatar"
-                                        class="img-circle"
-                                        width="150"
-                                    />
-                                </div>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                <label for>Email</label>
+                                <input
+                                    type="email"
+                                    v-model="email"
+                                    class="form-control"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Introduce el Email"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for>Usuario</label>
+                                <input
+                                    type="text"
+                                    v-model="usuario"
+                                    name="usuario"
+                                    id="usuario"
+                                    class="form-control"
+                                    placeholder="introduce el usuairo"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for>Contraseña</label>
+                                <input
+                                    type="password"
+                                    v-model="contrasena"
+                                    class="form-control"
+                                    name="contrasena"
+                                    id="contrasena"
+                                    placeholder="Intrododuce una contraseña"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>Foto de Perfil</label>
+                                <input
+                                    type="file"
+                                    class="form-control-file"
+                                    name="image"
+                                    id="image"
+                                    accept="image/*"
+                                    @change="getImagen"
+                                />
+                                <img
+                                    :src="avatar"
+                                    class="img-circle"
+                                    width="150"
+                                />
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <!-- Botón que limpia el formulario y inicializa la variable a 0, solo se muestra si la variable update es diferente a 0-->
@@ -263,7 +261,7 @@
                             <!-- Botón que modifica la tarea que anteriormente hemos seleccionado, solo se muestra si la variable update es diferente a 0-->
                             <button
                                 v-if="update != 0"
-                                @click="updateSecretaria()"
+                                @click="actualizar()"
                                 data-dismiss="modal"
                                 class="btn btn-warning"
                             >
@@ -289,37 +287,20 @@ export default {
             email: "",
             usuario: "",
             contrasena: "",
-            imagen: null,
+            imagen: "",
             avatar: "",
             loaded: false,
             update: 0 /*Esta variable contrarolará cuando es una nueva tarea o una modificación, si es 0 significará que no hemos seleccionado*/,
-            secretarias: []
+            datos: []
         };
     },
     mounted() {
-        this.getSecretarias();
-        //this.getDataTableUsers();
+        this.listar();
     },
     methods: {
-        getSecretarias() {
-            let me = this;
-            let url = "/secretaria/index"; //Ruta que hemos creado para que nos devuelva todas las tareas
-            axios
-                .get(url)
-                .then(function(response) {
-                    //creamos un array y guardamos el contenido que nos devuelve el response
-                    me.secretarias = response.data;
-                    me.initDtt();
-                    // me.$swal("Hello Vue world!!!");
-                })
-                .catch(function(error) {
-                    // handle error
-                    console.log(error);
-                });
-        },
         initDtt() {
             $(document).ready(() => {
-                $("#secretariaTable").DataTable({
+                $("#tablaDoctor").DataTable({
                     responsive: true,
                     language: {
                         url:
@@ -328,30 +309,28 @@ export default {
                 });
             });
         },
-        getAvatar() {
-            return "";
-        },
-        getImagen(e) {
-            //Asignamos la imagen a  nuestra data
-            this.imagen = e.target.files[0];
-            let image = e.target.files[0];
-            let reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onload = e => {
-                this.avatar = e.target.result;
-            };
-            this.loaded = true;
-        },
-        toggleModal: function() {
-            $("#modelId").modal("show");
-        },
-        guardar: function() {
+        listar() {
             let me = this;
-            let url = "/secretaria/store"; //Ruta que hemos creado para enviar una tarea y guardarla
-            //Creamos el formData
+            let url = "/doctor/index"; //Ruta que hemos creado para que nos devuelva todas las tareas
+            axios
+                .get(url)
+                .then(function(response) {
+                    //creamos un array y guardamos el contenido que nos devuelve el response
+                    me.datos = response.data;
+                    me.initDtt();
+                    // me.$swal("Hello Vue world!!!");
+                })
+                .catch(function(error) {
+                    // handle error
+                    console.log(error);
+                });
+        },
+        guardar() {
+            let me = this;
+            let url = "/doctor/store"; //Ruta que hemos creado para enviar una tarea y guardarla
+            //Creamos el formDataa
             var formdata = new FormData();
             //Añadimos la imagen seleccionada
-            //formdata.append("data",  JSON.stringify(this.data));
             formdata.append("nombre_usuario", this.nombres);
             formdata.append("apellido_usuario", this.apellidos);
             formdata.append("direccion", this.direccion);
@@ -363,35 +342,25 @@ export default {
             formdata.append("avatar", this.imagen);
             axios
                 .post(url, formdata, {
-                    //estas variables son las que enviaremos para que crear la tarea
-                    // nombre_usuario: this.nombres,
-                    // apellido_usuario: this.apellidos,
-                    // direccion: this.direccion,
-                    // telefono: this.telefono,
-                    // sexo: this.sexo,
-                    // email: this.email,
-                    // usuario: this.usuario,
-                    // contrasena: this.contrasena,
                     headers: { "Content-Type": "multipart/form-data" }
                 })
                 .then(function(response) {
                     //          me.getTasks(); //llamamos al metodo getTask(); para que refresque nuestro array y muestro los nuevos datos
                     //        me.clearFields(); //Limpiamos los campos e inicializamos la variable update a 0
-                    $("#secretariaTable")
+                    $("#tablaDoctor")
                         .dataTable()
                         .fnDestroy();
-                    me.getSecretarias();
+                    me.listar();
                     me.limpiarInput();
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
         },
-        cargarDatos: function(id) {
-            //Esta función rellena los campos y la variable update, con la tarea que queremos modificar
+        editar(id) {
             this.update = id;
             let me = this;
-            let url = "/secretaria/edit/" + this.update;
+            let url = "/doctor/edit/" + this.update;
             axios
                 .get(url)
                 .then(function(response) {
@@ -410,9 +379,9 @@ export default {
                     console.log(error);
                 });
         },
-        updateSecretaria: function() {
-           let me = this;
-            let url = "/secretaria/update/" + this.update; //Ruta que hemos creado para enviar una tarea y guardarla
+        actualizar() {
+            let me = this;
+            let url = "/doctor/update/" + this.update; //Ruta que hemos creado para enviar una tarea y guardarla
              var formdata = new FormData();
             //Añadimos la imagen seleccionada
             formdata.append("nombre_usuario", this.nombres);
@@ -435,8 +404,27 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
+            // axios
+                // .put("/paciente/update/" + this.update, {
+                //     //id: this.update,
+                //     nombre_usuario: this.nombres,
+                //     apellido_usuario: this.apellidos,
+                //     direccion: this.direccion,
+                //     telefono: this.telefono,
+                //     sexo: this.sexo,
+                //     email: this.email,
+                //     usuario: this.usuario,
+                //     contrasena: this.contrasena
+                // })
+                // .then(function(response) {
+                //    me.reiniciarTabla();
+                //     me.limpiarInput();
+                // })
+                // .catch(function(error) {
+                //     console.log(error);
+                // });
         },
-        deleteSecretaria: function(item) {
+        eliminar(item) {
             //Esta nos abrirá un alert de javascript y si aceptamos borrará la tarea que hemos elegido
             let me = this;
             // let task_id = data.id;
@@ -458,38 +446,25 @@ export default {
                 .then(result => {
                     if (result.value) {
                         axios
-                            .delete("/secretaria/delete/" + item.id)
+                            .delete("/doctor/delete/" + item.id)
                             .then(function(response) {
                                 me.$swal.fire(
                                     "Eliminado!",
                                     "Su Registro a sido eliminado",
                                     "success"
                                 );
-                                $("#secretariaTable")
+                                $("#tablaDoctor")
                                     .dataTable()
                                     .fnDestroy();
-                                me.getSecretarias();
+                                me.listar();
                             })
                             .catch(function(error) {
                                 console.log(error);
                             });
                     }
                 });
-            // if (confirm("¿Seguro que deseas borrar esta tarea?")) {
-            //     axios
-            //         .delete("/secretaria/delete/" + id)
-            //         .then(function(response) {
-            //             $("#secretariaTable")
-            //                 .dataTable()
-            //                 .fnDestroy();
-            //             me.getSecretarias();
-            //         })
-            //         .catch(function(error) {
-            //             console.log(error);
-            //         });
-            // }
         },
-        limpiarInput: function() {
+        limpiarInput() {
             this.nombres = "";
             this.apellidos = ""; //Esta variable, mediante v-model esta relacionada con el input del formulario
             this.direccion = "";
@@ -503,11 +478,25 @@ export default {
             this.loaded = false;
             this.update = 0;
         },
-        reiniciarTabla() {
-            $("#secretariaTable")
+        toggleModal() {
+            $("#modelId").modal("show");
+        },
+        getImagen(e) {
+            //Asignamos la imagen a  nuestra data
+            this.imagen = e.target.files[0];
+            let image = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e => {
+                this.avatar = e.target.result;
+            };
+            this.loaded = true;
+        },
+         reiniciarTabla() {
+            $("#tablaPaciente")
                 .dataTable()
                 .fnDestroy();
-             this.getSecretarias();
+            this.listar();
         }
     }
 };

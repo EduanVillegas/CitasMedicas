@@ -7,8 +7,14 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
 import dt from "datatables.net-dt";
 import dtcss from "datatables.net-dt/css/jquery.dataTables.min.css";
+
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,7 +29,10 @@ import dtcss from "datatables.net-dt/css/jquery.dataTables.min.css";
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('secretaria', require('./components/Secretaria.vue').default);
 Vue.component('consultorio', require('./components/Consultorio.vue').default);
+Vue.component('doctor', require('./components/Doctor.vue').default);
+Vue.component('paciente', require('./components/Paciente.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
+Vue.component('perfil', require('./components/Perfil.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

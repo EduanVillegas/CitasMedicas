@@ -33,6 +33,14 @@
                                     </p>
                                 </a>
                             </li>
+                            <li @click="menu=5" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i>
+                                    <p>
+                                        Mi Perfil
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-tree"></i>
@@ -76,14 +84,14 @@
                                             <p>Consultorios</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="pages/forms/advanced.html" class="nav-link">
+                                    <li @click="menu=3" class="nav-item">
+                                        <a href="#" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>Doctores</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="pages/forms/editors.html" class="nav-link">
+                                    <li @click="menu=4" class="nav-item">
+                                        <a href="#" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>Pacientes</p>
                                         </a>
