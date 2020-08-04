@@ -56,8 +56,8 @@
                                             <p>Pacientes</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="pages/UI/icons.html" class="nav-link">
+                                    <li @click="menu=6" class="nav-item">
+                                        <a href="#" class="nav-link">
                                             <i class="fa fa-circle-o nav-icon"></i>
                                             <p>Fechas</p>
                                         </a>

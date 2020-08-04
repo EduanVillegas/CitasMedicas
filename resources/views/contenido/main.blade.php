@@ -26,6 +26,9 @@
 <transition name="fade" v-if="menu==5">
     <perfil></perfil>
 </transition>
+<transition name="fade" v-if="menu==6">
+    <agenda></agenda>
+</transition>
 {{--
 
     <template v-if="menu==3">

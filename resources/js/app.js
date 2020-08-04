@@ -14,6 +14,10 @@ import dtcss from "datatables.net-dt/css/jquery.dataTables.min.css";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import 'fullcalendar/dist/fullcalendar.css';
+import FullCalendar from 'vue-full-calendar'; //Import Full-calendar 
+
+Vue.use(FullCalendar);
 Vue.use(VueSweetalert2);
 /**
  * The following block of code may be used to automatically register your
@@ -33,6 +37,7 @@ Vue.component('doctor', require('./components/Doctor.vue').default);
 Vue.component('paciente', require('./components/Paciente.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
 Vue.component('perfil', require('./components/Perfil.vue').default);
+Vue.component('agenda', require('./components/Agenda.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

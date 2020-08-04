@@ -493,7 +493,7 @@ export default {
             this.loaded = true;
         },
          reiniciarTabla() {
-            $("#tablaPaciente")
+            $("#tablaDoctor")
                 .dataTable()
                 .fnDestroy();
             this.listar();

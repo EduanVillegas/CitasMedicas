@@ -39,6 +39,12 @@ Route::post('paciente/store', 'PacienteController@store');
 Route::get('paciente/edit/{id}', 'PacienteController@edit');
 Route::post("paciente/update/{id}","PacienteController@update");
 Route::delete("paciente/delete/{id}","PacienteController@destroy");
+
+Route::get('agenda/index', 'AgendaController@index');
+Route::post('agenda/store', 'AgendaController@store');
+Route::get('agenda/edit/{id}', 'AgendaController@edit');
+Route::post("agenda/update/{id}","AgendaController@update");
+Route::delete("agenda/delete/{id}","AgendaController@destroy");
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
