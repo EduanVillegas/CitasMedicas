@@ -4,14 +4,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Consultorios
-                        <button
-                            type="button"
-                            class="btn btn-success"
-                            @click="toggleModal()"
-                        >
-                            <i class="fa fa-plus"></i>&nbsp;Nuevo
-                        </button>
+                        <i class="fa fa-align-justify"></i> Perfil
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -32,14 +25,28 @@
 
                                         <h3
                                             class="profile-username text-center"
+                                            v-text="nombres"
                                         >
-                                            Nina Mcintire
+                                            >
                                         </h3>
 
-                                        <p class="text-muted text-center">
-                                            Software Engineer
+                                        <p
+                                            v-if="perfil == 1"
+                                            class="text-muted text-center"
+                                        >
+                                            Secretaria
                                         </p>
-
+                                        <p
+                                            v-else-if="perfil == 2"
+                                            class="text-muted text-center"
+                                        >
+                                            Doctor
+                                        </p>
+                                        <p
+                                            v-else  class="text-muted text-center"
+                                        >
+                                            Paciente
+                                        </p>
                                         <ul
                                             class="list-group list-group-unbordered mb-3"
                                         >
@@ -72,7 +79,7 @@
                                                     class="nav-link"
                                                     href="#settings"
                                                     data-toggle="tab"
-                                                    >Settings</a
+                                                    >Informacion</a
                                                 >
                                             </li>
                                         </ul>
@@ -80,7 +87,10 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="tab-pane active" id="settings">
+                                            <div
+                                                class="tab-pane active"
+                                                id="settings"
+                                            >
                                                 <form class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label
@@ -91,6 +101,9 @@
                                                         <div class="col-sm-10">
                                                             <input
                                                                 type="email"
+                                                                v-model="
+                                                                    nombres
+                                                                "
                                                                 class="form-control"
                                                                 id="nombre"
                                                                 placeholder="Ingresa nombre"
@@ -106,6 +119,9 @@
                                                         <div class="col-sm-10">
                                                             <input
                                                                 type="text"
+                                                                v-model="
+                                                                    apellidos
+                                                                "
                                                                 class="form-control"
                                                                 id="nombre"
                                                                 placeholder="ingresa apellido"
@@ -121,6 +137,9 @@
                                                         <div class="col-sm-10">
                                                             <input
                                                                 type="text"
+                                                                v-model="
+                                                                    direccion
+                                                                "
                                                                 class="form-control"
                                                                 id="inputName2"
                                                                 placeholder="Ingresa direccion"
@@ -134,8 +153,11 @@
                                                             >Telefono</label
                                                         >
                                                         <div class="col-sm-10">
-                                                          <input
+                                                            <input
                                                                 type="text"
+                                                                v-model="
+                                                                    telefono
+                                                                "
                                                                 class="form-control"
                                                                 id="inputSkills"
                                                                 placeholder="Ingresa telefono"
@@ -151,13 +173,14 @@
                                                         <div class="col-sm-10">
                                                             <input
                                                                 type="email"
+                                                                v-model="email"
                                                                 class="form-control"
                                                                 id="inputSkills"
                                                                 placeholder="Ingresa correo"
                                                             />
                                                         </div>
                                                     </div>
-                                                     <div class="form-group row">
+                                                    <div class="form-group row">
                                                         <label
                                                             for="inputSkills"
                                                             class="col-sm-2 col-form-label"
@@ -166,13 +189,16 @@
                                                         <div class="col-sm-10">
                                                             <input
                                                                 type="text"
+                                                                v-model="
+                                                                    usuario
+                                                                "
                                                                 class="form-control"
                                                                 id="inputSkills"
                                                                 placeholder="Ingresa usuario"
                                                             />
                                                         </div>
                                                     </div>
-                                                     <div class="form-group row">
+                                                    <div class="form-group row">
                                                         <label
                                                             for="inputSkills"
                                                             class="col-sm-2 col-form-label"
@@ -187,7 +213,6 @@
                                                             />
                                                         </div>
                                                     </div>
-
                                                 </form>
                                             </div>
                                             <!-- /.tab-pane -->
@@ -213,8 +238,30 @@
 
 <script>
 export default {
+    props: ["user"],
+    data() {
+        return {
+            nombres: "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+            apellidos: "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+            direccion: "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+            telefono: "", //Esta variable, mediante v-model esta relacionada con el input del formulario
+            sexo: "",
+            email: "",
+            usuario: "",
+            password: "",
+            perfil: ""
+        };
+    },
     mounted() {
-        console.log("Component mounted.");
+        console.log(this.user);
+        this.nombres = this.user.nombre_usuario;
+        this.apellidos = this.user.apellido_usuario; //Esta variable, mediante v-model esta relacionada con el input del formulario
+        this.direccion = this.user.direccion; //Esta variable, mediante v-model esta relacionada con el input del formulario
+        this.telefono = this.user.telefono; //Esta variable, mediante v-model esta relacionada con el input del formulario
+        this.sexo = this.user.sexo;
+        this.email = this.user.email;
+        this.usuario = this.user.usuario;
+        this.perfil = this.user.perfil;
     }
 };
 </script>

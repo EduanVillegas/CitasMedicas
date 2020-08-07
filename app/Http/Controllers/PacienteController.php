@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class PacienteController extends Controller
 {
@@ -53,7 +54,7 @@ class PacienteController extends Controller
         $doctor->sexo = $request->sexo;
         $doctor->email = $request->email;
         $doctor->usuario = $request->usuario;
-        $doctor->contrasena = $request->contrasena;
+        $doctor->password = Hash::make($request->password);
         $doctor->foto = $imagenBD;
         $doctor->perfil = 3;
         $doctor->save();
@@ -101,8 +102,8 @@ class PacienteController extends Controller
         $paciente->sexo = $request->sexo;
         $paciente->email = $request->email;
         $paciente->usuario = $request->usuario;
-        if (!empty($request->contrasena)) {
-            $paciente->contrasena = $request->contrasena;
+        if (!empty($request->password)) {
+            $paciente->password = Hash::make($request->password);
         }
         // Verificamos si hay un file con nombre avatar
         if ($request->hasFile('avatar')) {

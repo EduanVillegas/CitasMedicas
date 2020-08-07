@@ -23,8 +23,9 @@
 <transition name="fade" v-if="menu==4">
     <paciente></paciente>
 </transition>
+
 <transition name="fade" v-if="menu==5">
-    <perfil></perfil>
+    <perfil :user="{{ Auth::user() }}"></perfil>
 </transition>
 <transition name="fade" v-if="menu==6">
     <agenda></agenda>

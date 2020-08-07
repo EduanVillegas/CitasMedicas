@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class SecretariaController extends Controller
 {
@@ -55,7 +56,7 @@ class SecretariaController extends Controller
         $secretaria->sexo = $request->sexo;
         $secretaria->email = $request->email;
         $secretaria->usuario = $request->usuario;
-        $secretaria->contrasena = $request->contrasena;
+        $secretaria->password = Hash::make($request->password);
         $secretaria->foto = $imagenBD;
         $secretaria->perfil = 1;
         $secretaria->save();
@@ -102,8 +103,8 @@ class SecretariaController extends Controller
         $secretaria->sexo = $request->sexo;
         $secretaria->email = $request->email;
         $secretaria->usuario = $request->usuario;
-        if (!empty($request->contrasena)) {
-            $secretaria->contrasena = $request->contrasena;
+        if (!empty($request->password)) {
+            $secretaria->password =  Hash::make($request->password);
         }
         // Verificamos si hay un file con nombre avatar
         if ($request->hasFile('avatar')) {

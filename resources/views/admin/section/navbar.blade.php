@@ -35,7 +35,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-danger" data-slide="true" href="#">Salir&nbsp;<i
+            <a class="nav-link text-danger" data-slide="true" href="{{ route('logout') }}">Salir&nbsp;<i
                     class="fa fa-sign-out"></i></a>
         </li>
     </ul>

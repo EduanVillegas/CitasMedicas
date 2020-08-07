@@ -215,10 +215,10 @@
                                     <label for>Contraseña</label>
                                     <input
                                         type="password"
-                                        v-model="contrasena"
+                                        v-model="password"
                                         class="form-control"
-                                        name="contrasena"
-                                        id="contrasena"
+                                        name="password"
+                                        id="password"
                                         placeholder="Intrododuce una contraseña"
                                     />
                                 </div>
@@ -288,7 +288,7 @@ export default {
             sexo: "",
             email: "",
             usuario: "",
-            contrasena: "",
+            password: "",
             imagen: null,
             avatar: "",
             loaded: false,
@@ -359,19 +359,10 @@ export default {
             formdata.append("sexo", this.sexo);
             formdata.append("email", this.email);
             formdata.append("usuario", this.usuario);
-            formdata.append("contrasena", this.contrasena);
+            formdata.append("password", this.password);
             formdata.append("avatar", this.imagen);
             axios
                 .post(url, formdata, {
-                    //estas variables son las que enviaremos para que crear la tarea
-                    // nombre_usuario: this.nombres,
-                    // apellido_usuario: this.apellidos,
-                    // direccion: this.direccion,
-                    // telefono: this.telefono,
-                    // sexo: this.sexo,
-                    // email: this.email,
-                    // usuario: this.usuario,
-                    // contrasena: this.contrasena,
                     headers: { "Content-Type": "multipart/form-data" }
                 })
                 .then(function(response) {
@@ -402,7 +393,7 @@ export default {
                     me.sexo = response.data.sexo;
                     me.email = response.data.email;
                     me.usuario = response.data.usuario;
-                    me.contrasena = "";
+                    me.password = "";
                     //me.imagen =response.data.foto;
                 })
                 .catch(function(error) {
@@ -422,7 +413,7 @@ export default {
             formdata.append("sexo", this.sexo);
             formdata.append("email", this.email);
             formdata.append("usuario", this.usuario);
-            formdata.append("contrasena", this.contrasena);
+            formdata.append("password", this.password);
             formdata.append("avatar", this.imagen);
             axios
                 .post(url, formdata, {
@@ -497,7 +488,7 @@ export default {
             this.sexo = "";
             this.email = ""; //Esta variable, mediante v-model esta relacionada con el input del formulario
             this.usuario = "";
-            this.contrasena = "";
+            this.password = "";
             this.imagen = "";
             this.avatar = "";
             this.loaded = false;
